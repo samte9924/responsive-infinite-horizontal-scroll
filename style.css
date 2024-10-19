@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 90%;
+  max-width: 1530px;
+  margin-inline: auto;
+  position: relative;
+  height: 100px;
+  margin-top: 5rem;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 1) 80%,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.item {
+  width: 200px;
+  height: 100px;
+  background: red;
+  border-radius: 6px;
+  position: absolute;
+  left: max(calc(200px * var(--total)), 100%);
+  /* the biggest value inside max() will be applied as left offset */
+  animation: scrollLeft var(--duration) linear infinite;
+  animation-delay: calc(
+    var(--duration) / var(--total) * (var(--total) - var(--position)) * -1
+  );
+  /* -1 gives a negative delay, allowing the items to start already mid-animation */
+}
+
+@keyframes scrollLeft {
+  /* from {} is already defined by the starting point of the items */
+  to {
+    left: -200px; /* item length */
+  }
+  /* the animation ends when the items go outside of the wrapper */
+}
